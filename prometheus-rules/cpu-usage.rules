@@ -1,6 +1,6 @@
 ALERT NodeCPUUsage
-  IF (100 - (avg by (instance) (irate(node_cpu{name="node-exporter",mode="idle"}[5m])) * 100)) > 75
-  FOR 2m
+  IF (100 - (avg by (instance) (irate(node_cpu{name="node-exporter",mode="idle"}[5m])) * 100)) > 1
+  FOR 20s
   LABELS {
     severity="page"
   }

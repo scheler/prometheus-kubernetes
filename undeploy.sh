@@ -12,7 +12,7 @@ print_green() {
 }
 
 #KUBECTL_PARAMS="--context=foo"
-NAMESPACE=${NAMESPACE:-monitoring}
+NAMESPACE=${NAMESPACE:-acp-system}
 KUBECTL="kubectl ${KUBECTL_PARAMS} --namespace=\"${NAMESPACE}\""
 
 INSTANCES="daemonset/node-exporter
@@ -20,15 +20,19 @@ job/grafana-import-dashboards
 deployment/alertmanager
 deployment/grafana
 deployment/prometheus-deployment
+deployment/kube-state-metrics-deployment
 service/alertmanager
 service/grafana
 service/prometheus-svc
+service/kube-state-metrics
 configmap/alertmanager
 configmap/alertmanager-templates
 configmap/grafana-import-dashboards
 configmap/prometheus-configmap
 configmap/prometheus-rules
-configmap/external-url"
+configmap/prometheus-env
+configmap/external-url
+secret/etcd-tls-client-certs"
 
 for instance in ${INSTANCES}; do
   eval "${KUBECTL} delete --ignore-not-found --now \"${instance}\""

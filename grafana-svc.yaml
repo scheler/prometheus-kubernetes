@@ -8,6 +8,7 @@ metadata:
   # annotations:
   #   prometheus.io/scrape: 'true'
 spec:
+  type: NodePort
   selector:
     app: grafana
     component: core
@@ -16,3 +17,4 @@ spec:
     protocol: TCP
     port: 3000
     targetPort: 3000
+    nodePort: 4001

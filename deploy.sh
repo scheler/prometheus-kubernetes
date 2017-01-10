@@ -12,13 +12,15 @@ print_green() {
 }
 
 #KUBECTL_PARAMS="--context=foo"
-NAMESPACE=${NAMESPACE:-monitoring}
+NAMESPACE=${NAMESPACE:-acp-system}
 KUBECTL="kubectl ${KUBECTL_PARAMS} --namespace=\"${NAMESPACE}\""
-EXTERNAL_URL=${EXTERNAL_URL:-https://prometheus.example.com}
+EXTERNAL_URL=${EXTERNAL_URL:-https://`hostname`}
 
 eval "kubectl ${KUBECTL_PARAMS} create namespace \"${NAMESPACE}\""
 
 eval "${KUBECTL} create configmap external-url --from-literal=url=${EXTERNAL_URL} --dry-run -o yaml" | eval "${KUBECTL} apply -f -"
+
+eval "${KUBECTL} --namespace=\"${NAMESPACE}\" create secret generic --from-literal=ca.pem=123 --from-literal=client.pem=123 --from-literal=client-key.pem=123 etcd-tls-client-certs"
 
 print_green "Set ${EXTERNAL_URL} as an external url"
 

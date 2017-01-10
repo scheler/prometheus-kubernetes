@@ -25,7 +25,7 @@ spec:
           - '-storage.local.retention=$(STORAGE_RETENTION)'
           - '-storage.local.memory-chunks=$(STORAGE_MEMORY_CHUNKS)'
           - '-config.file=/etc/prometheus/prometheus.yml'
-          - '-alertmanager.url=http://alertmanager:9093/alertmanager'
+          - '-alertmanager.url=http://alertmanager:4002/alertmanager'
           - '-web.external-url=$(EXTERNAL_URL)'
         ports:
         - name: web
